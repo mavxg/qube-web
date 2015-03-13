@@ -20,7 +20,7 @@ livedb.ot.registerType(slate0.type);
 
 //TODO: register the other type with express.
 
-var db = livedbMongo('mongo://localhost:27017/qube?auto_reconnect', {safe:false});
+var db = livedbMongo('mongodb://localhost:27017/qube?auto_reconnect', {safe:false});
 var backend = livedb.client(db);
 var share = sharejs.server.createClient({backend: backend});
 
@@ -38,6 +38,7 @@ app.use(browserChannel(function(client) {
   };
 
   client.on('message', function(data) {
+    console.log(JSON.stringify(data))
     stream.push(data);
   });
 

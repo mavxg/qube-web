@@ -11,7 +11,7 @@
     "watch-assets": "npm run watch-css & npm run watch-js",
     "watch-server": "nodemon --ignore style/ --ignore public/ --ignore client/ --ignore test/ ./bin/www",
     "watch": "npm run watch-assets & npm run watch-server",
-    "watch-win": "start /b npm run watch-css & start /b npm run watch-js & start /b npm run watch-server",
+    "watch-win": "start npm run watch-css & start npm run watch-js & start npm run watch-server",
     "build": "npm run build-js & npm run build-css",
     "test": "mocha",
     "dev": "DEBUG=qube-web:* NODE_ENV=development npm run watch",
