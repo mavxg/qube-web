@@ -5,10 +5,54 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var livedb = require('livedb');
+var livedbMongo = require('livedb-mongo');
+var browserChannel = require('browserchannel').server;
+var Duplex = require('stream').Duplex;
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var slate0 = require('slate0');
+var sharejs = require('share');
+
+livedb.ot.registerType(slate0.type);
+
+//TODO: register the other type with express.
+
+var db = livedbMongo('mongo://localhost:27017/qube?auto_reconnect', {safe:false});
+var backend = livedb.client(db);
+var share = sharejs.server.createClient({backend: backend});
+
 var app = express();
+
+app.use(browserChannel(function(client) {
+  var stream = new Duplex({objectMode: true});
+
+  stream._read = function() {};
+  stream._write = function(chunk, encoding, callback) {
+    if (client.state !== 'closed') {
+      client.send(chunk);
+    }
+    callback();
+  };
+
+  client.on('message', function(data) {
+    stream.push(data);
+  });
+
+  client.on('close', function(reason) {
+    stream.push(null);
+    stream.emit('close');
+  });
+
+  stream.on('end', function() {
+    client.close();
+  });
+
+  // Give the stream to sharejs
+  return share.listen(stream);
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
