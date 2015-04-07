@@ -1,7 +1,94 @@
-body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-a
-  color: #00B7FF
-p
-  color: green
+body {
+	font-family: sans-serif;
+	color: #114;
+	line-height: 28.5px;
+	font-size: 17px;
+}
+
+/* fix line height change due to sub/sup */
+sup, sub {
+   vertical-align: baseline;
+   position: relative;
+   top: -0.4em;
+}
+sub { top: 0.4em; }
+
+
+div.content {
+	margin: auto;
+	max-width: 700px;
+}
+
+section hr {
+	display: block;
+	width: 100px;
+	margin: 3em auto 3em auto;
+	border: 0;
+	border-top: 1px solid rgba(0,0,0,0.15);
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	empty-cells: show;
+	border: 1px solid #cbcbcb;
+}
+
+th, td {
+	text-align: left;
+	border-left: 1px solid #cbcbcb;
+	border-width: 0 0 0 1px;
+	font-size: inherit;
+	margin: 0;
+	overflow: visible;
+	padding: .5em 1em;
+	border-bottom: 1px solid #cbcbcb;
+}
+
+thead {
+background: #e0e0e0;
+color: #000;
+text-align: left;
+vertical-align: bottom;
+}
+
+textarea.hiddenTextArea {
+width: 100%;
+max-width: 800px;
+height: 50px;
+opacity: 0;
+position: absolute;
+left: -3000px;
+}
+/*
+::-moz-selection {
+    opacity:  0;
+}
+
+::selection {
+    opacity: 0;
+}
+*/
+.editor {
+	position: relative;
+}
+
+.selection {
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+}
+
+.selection div {
+	position: absolute;
+	background: rgba(114,190,215,0.5);
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+pre {
+	padding: 1em;
+	background: rgba(0,0,0,0.05);
+}
